@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+  db: 
+    image: mysql
+    container_name: mysql-container
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    networks: 
+        default:
+          aliases: 
+            - database
+    environment:
+      MYSQL_ROOT_PASSWORD:  wes123
+    volumes:
+      - ./db/data:/var/lib/mysql
+  api:
+      build: ./
+      container_name: django-container
+      stop_signal: SIGINT
+      networks: 
+        default:
+          aliases: 
+            - api
+      volumes:
+        - ./mysite:/usr/src/app
+      ports:
+        - "8000:8000"
+  web:
+    image: nginx
+    volumes:
+      #- ./templates:/etc/nginx/templates
+      - ./templates/conf:/etc/nginx/conf.d/
+    networks: 
+        default:
+          aliases: 
+            - web
+    ports:
+      - "8080:80"
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80
