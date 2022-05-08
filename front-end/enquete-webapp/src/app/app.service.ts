@@ -11,7 +11,7 @@ export class AppService {
   constructor( private http: HttpClient) { }
 
   obterEnquetes(){
-    return this.http.get<Enquete>(`${environment.apiUrl}/lista`)
+    return this.http.get<Enquete>(`${environment.apiUrl}/lista_questoes/`)
   }
 
 }
