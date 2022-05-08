@@ -23,6 +23,7 @@ services:
             - api
       volumes:
         - ./mysite:/usr/src/app
+        #- ./mysite:/usr/src/app
       ports:
         - "8000:8000"
   web:

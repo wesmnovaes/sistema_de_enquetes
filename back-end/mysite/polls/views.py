@@ -6,6 +6,13 @@ from django.template import loader
 from django.urls import reverse
 from django.core import serializers
 
+
+from rest_framework.parsers import JSONParser 
+from rest_framework import status
+ 
+from polls.serializers import QuestionSerializer
+from rest_framework.decorators import api_view
+
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     template = loader.get_template('polls/index.html')
@@ -17,13 +24,6 @@ def index(request):
     #data = serializers.serialize("json", latest_question_list, fields=('question_text','pub_date'))
     #return HttpResponse(data)
 
-def lista(request):
-    data = '{model: 1, pk: 1}'
-    #return HttpResponse(data)
-    return JsonResponse(data, safe=False)
-
-
-
 def details(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/details.html', {'question': question})
@@ -33,8 +33,6 @@ def results(request, question_id):
     return render(request, 'polls/results.html', {'question': question})
     return HttpResponse(request, question)
     #return JsonResponse(question, safe=False)
-
-    
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -49,3 +47,20 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+@api_view(['GET', 'POST', 'DELETE'])
+#def tutorial_list(request):
+def question_list(request):
+    if request.method == 'GET':
+        #tutorials = Tutorial.objects.all()
+        questions = Question.objects.all()
+        
+        title = request.GET.get('title', None)
+        if title is not None:
+            tutorials = tutorials.filter(title__icontains=title)
+        
+        #tutorials_serializer = TutorialSerializer(tutorials, many=True)
+        questions_serializer = QuestionSerializer(questions, many=True)
+        #return JsonResponse(tutorials_serializer.data, safe=False)
+        return JsonResponse(questions_serializer.data, safe=False)
+        # 'safe=False' for objects serialization
