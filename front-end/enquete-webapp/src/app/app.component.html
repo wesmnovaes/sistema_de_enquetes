@@ -1,36 +1,23 @@
-<nav class="navbar navbar navbar-light" style="background-color: #e3f2fd;">
-    <img src="../assets/poll.svg" width="100" height="70" alt="">
-</nav>
-<div class="container">
-  <div class="card">
-    <div class="card-head">
-      <div class="row">
-        <div class="col"><h5> Escolha uma enquete!</h5></div>
-        <div class="col d-flex justify-content-end">
-          <button class="btn btn-primary"> Nova enquete </button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="row">
+            <div class="d-flex justify-content-center"> 
+                <img src="../assets/poll.svg" width="100" height="70">
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="card-title">Lista de enquetes:</div>
+        
       
-      
-      <table class="table">
-        <thead>
-          <th> Id </th>
-          <th> Enquete</th>
-          <th> Data da publicação</th>
-        </thead>
-        <tbody> 
-          <tr *ngFor="let enquete of lista_enquete"> 
-          <td> {{enquete.id}}</td>
-          <td> {{enquete.question_text}}</td>
-          <td> {{enquete.pub_date}}</td>
-          </tr>
-      </tbody>
-      </table>
-      <ul *ngFor="let vert of arr_list"> 
-      <li> {{vert.nome}} </li></ul>
+    </nav>
+    <div class="container">
+        <router-outlet></router-outlet>
     </div>
-  </div>
-</div>
+</body>
+</html>
