@@ -9,9 +9,10 @@ import { AppService } from '../app.service';
 })
 export class EnqueteComponent implements OnInit {
 
-  
 lista_enquete: any;
 arr_list: any[] = [];
+teste: number = 0;
+retorno_v: any;
 
 constructor( private AppService$: AppService){}
 
@@ -20,13 +21,17 @@ this.obterEnquetes();
 }
 
 obterEnquetes(){
-
   this.AppService$.obterEnquetes()
   .subscribe(
     dados => {
     this.lista_enquete = dados
-    //console.log(this.lista_enquete )  
-  }
-  )
+  })
 }
+
+deleteQuestao(id: number){
+      if(this.AppService$.deleteQuestao(id).subscribe())
+      window.alert('Enquete exluída com sucesso!')
+      this.obterEnquetes();
+  }
+  
 }

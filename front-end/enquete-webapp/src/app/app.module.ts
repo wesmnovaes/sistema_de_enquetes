@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EnqueteComponent } from './enquete/enquete.component';
 import { EnqueteDetalhesComponent } from './enquete/enquete-detalhes/enquete-detalhes.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { EnqueteDetalhesComponent } from './enquete/enquete-detalhes/enquete-det
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

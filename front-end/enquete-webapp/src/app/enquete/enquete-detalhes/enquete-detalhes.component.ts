@@ -2,6 +2,8 @@ import { AppService } from './../../app.service';
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { Escolha } from './escolha';
 
 @Component({
   selector: 'app-enquete-detalhes',
@@ -10,11 +12,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EnqueteDetalhesComponent implements OnInit {
 
-  private enquete: number = 0;
+  enquete: number = 0;
   escolhas: any;
   titulo_enquete: string = '';
+  votoform = new FormGroup({});
 
-  constructor(private route: ActivatedRoute, private AppService$: AppService) { }
+data_form: string = ''
+id_form: number = 0
+  
+constructor(private route: ActivatedRoute, private AppService$: AppService) { }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -37,8 +43,18 @@ export class EnqueteDetalhesComponent implements OnInit {
     this.AppService$.obterOpcoes(id)
     .subscribe( dados => {
       this.escolhas = dados
-    }
-    )
+    })
   }
+
+  id: number = 0;
+  question: number = 0;
+  choice: string = '';
+  votes: number = 0;
+
+  Votar(f: NgForm): void{
+    let e: Escolha = {'id':f.value['choice'],'question':this.enquete, 'choice': '', 'votes':0}
+    this.AppService$.enviarVoto(this.enquete,e).subscribe()
+    console.log(e)
+    }
 
 }

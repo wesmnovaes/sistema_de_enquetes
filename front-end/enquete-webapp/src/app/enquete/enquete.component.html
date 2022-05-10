@@ -17,8 +17,8 @@
               <td> {{enquete.pub_date}}</td>
               <td [routerLink]="['/enquete-detalhes']" routerLinkActive="router-link-active" [queryParams]="{enquete: [enquete.id]}"> <button class="btn btn-primary"> Votar </button> </td>
               <td> <button class="btn btn-warning"> Editar </button> </td>
-              <td> <button class="btn btn-danger"> Excluir </button> </td>
-              </tr>
+              <td> <button class="btn btn-danger" (click)="deleteQuestao(enquete.id)"> Excluir </button> </td>
+            </tr>
           </tbody>
           </table>
         </div>

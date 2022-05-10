@@ -4,10 +4,10 @@
     </div>
     <div class="card-body">
       <h5 class="card-title">{{titulo_enquete}}</h5>
-      <form>
+      <form #f="ngForm" (ngSubmit)="Votar(f)">
         <div class="form-group" style="margin-top: 2%;">
           <div class="form-check" *ngFor="let escolha of escolhas">
-            <input class="form-check-input" type="radio" name={{escolha.choice_text}} id={{escolha.id}} value={{escolha.id}}>
+            <input class="form-check-input" type="radio" name="choice" ngModel id={{escolha.id}} value={{escolha.id}}>
             <label class="form-check-label" for={{escolha.id}}>
               {{escolha.choice_text}}
             </label>
