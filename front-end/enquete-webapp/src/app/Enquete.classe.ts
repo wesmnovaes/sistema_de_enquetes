@@ -1,4 +1,5 @@
 export class Enquete {
-    model: number = 0;
-    pk: number = 0;
+    id: number = 0;
+    question_text: string = '';
+    pub_date: string = '';
 }

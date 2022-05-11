@@ -1,0 +1,26 @@
+      <div class="card">
+        <div class="card-header"> 
+          <h5> Escolha uma enquete!</h5>
+        </div>
+        <div class="card-body">         
+          <table class="table table-striped">
+            <thead>
+              <th> Id </th>
+              <th> Enquete</th>
+              <th> Data da publicação</th>
+              <th> Ações</th>
+            </thead>
+            <tbody> 
+              <tr *ngFor="let enquete of lista_enquete"> 
+              <td> {{enquete.id}}</td>
+              <td> {{enquete.question_text}}</td>
+              <td> {{enquete.pub_date}}</td>
+              <td> <button class="btn btn-success" [routerLink]="['/enquete-detalhes']" routerLinkActive="router-link-active" [queryParams]="{enquete: [enquete.id]}">  Votar </button> </td>
+              <td> <button class="btn btn-info" [routerLink]="['/parciais/',enquete.id]" routerLinkActive="router-link-active" > Parciais </button> </td>
+              <td> <button class="btn btn-danger" (click)="deleteQuestao(enquete.id)"> Excluir </button> </td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    

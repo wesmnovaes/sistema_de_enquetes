@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+          <div class="col">
+            Parciais 
+          </div>
+          <div class="d-flex justify-content-end">
+              <button class="btn btn-success" [routerLink]="['/enquete-detalhes']" routerLinkActive="router-link-active" [queryParams]="{enquete: [id]}">  Votar </button>
+              <button class="btn btn-primary" [routerLink]="['/']" routerLinkActive="router-link-active" style="margin-left:1.5%"> Inicio </button>
+          </div>
+           
+        </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <table class="table table-striped">
+        <thead>
+          <th> Opção </th>
+          <th> votos </th>
+        </thead>
+        <tbody> 
+          <tr *ngFor="let item of lista"> 
+          <td> {{item.choice_text}}</td>
+          <td> {{item.votes}}</td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
