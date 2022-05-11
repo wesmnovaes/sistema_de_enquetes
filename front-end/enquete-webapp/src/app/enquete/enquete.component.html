@@ -15,8 +15,8 @@
               <td> {{enquete.id}}</td>
               <td> {{enquete.question_text}}</td>
               <td> {{enquete.pub_date}}</td>
-              <td [routerLink]="['/enquete-detalhes']" routerLinkActive="router-link-active" [queryParams]="{enquete: [enquete.id]}"> <button class="btn btn-primary"> Votar </button> </td>
-              <td> <button class="btn btn-warning"> Editar </button> </td>
+              <td> <button class="btn btn-success" [routerLink]="['/enquete-detalhes']" routerLinkActive="router-link-active" [queryParams]="{enquete: [enquete.id]}">  Votar </button> </td>
+              <td> <button class="btn btn-info" [routerLink]="['/parciais/',enquete.id]" routerLinkActive="router-link-active" > Parciais </button> </td>
               <td> <button class="btn btn-danger" (click)="deleteQuestao(enquete.id)"> Excluir </button> </td>
             </tr>
           </tbody>

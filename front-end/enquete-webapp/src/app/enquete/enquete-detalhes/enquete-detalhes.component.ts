@@ -1,9 +1,10 @@
 import { AppService } from './../../app.service';
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Escolha } from './escolha';
+
 
 @Component({
   selector: 'app-enquete-detalhes',
@@ -20,12 +21,12 @@ export class EnqueteDetalhesComponent implements OnInit {
 data_form: string = ''
 id_form: number = 0
   
-constructor(private route: ActivatedRoute, private AppService$: AppService) { }
+constructor(private route: ActivatedRoute, private AppService$: AppService, private redirect: Router) { }
 
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        this.enquete = params.enquete;
+        this.enquete = +params.enquete;
       }
     );
     this.obterOpcoes(this.enquete)
@@ -46,15 +47,13 @@ constructor(private route: ActivatedRoute, private AppService$: AppService) { }
     })
   }
 
-  id: number = 0;
-  question: number = 0;
-  choice: string = '';
-  votes: number = 0;
-
   Votar(f: NgForm): void{
-    let e: Escolha = {'id':f.value['choice'],'question':this.enquete, 'choice': '', 'votes':0}
-    this.AppService$.enviarVoto(this.enquete,e).subscribe()
-    console.log(e)
+    let e: Escolha = {'id':f.value['choice'],'question':this.enquete, 'choice_text': 'blank', 'votes':5}
+    this.AppService$.Voto(this.enquete,e).subscribe( dados => {
+      console.log('retorno:',dados)
+    })
+    this.redirect.navigate(['parciais/'+ this.enquete]);
+    console.log('enquete: ', this.enquete, 'elemento: ' , e)
     }
 
 }

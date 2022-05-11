@@ -70,28 +70,30 @@ def choices_byid(request, question_id):
     choicesSerializer = ChoiceSerializer(choices, many=True)
     return JsonResponse(choicesSerializer.data, safe=False)
 
-
-@api_view(['GET', 'POST','PUT', 'DELETE'])
-def vote_resto(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    dataS = ChoiceSerializer(request.POST)
-    try:
-        selected_choice = question.choice_set.get(pk=dataS.id)
-    except (KeyError, Choice.DoesNotExist):
-        return render(request, 'polls/details.html', {
-            'question': question,
-            'erro_mensage': 'Voce deve selecionar uma opção'
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        return JsonResponse(dataS.data)
-
-@api_view(['GET', 'POST','PUT', 'DELETE'])
+@api_view(['POST','PUT'])
 def vote_rest(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
+    serializer = ChoiceSerializer(data=request.data)
+    if serializer.is_valid():
+        selected_choice = question.choice_set.get(pk=5)
+        selected_choice.votes += 1
+        selected_choice.save()
+        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, safe=False)
+    else: 
+        return JsonResponse(serializer.data, serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)
+
+@api_view(['GET'])
+def result_choice(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    choices = question.choice_set.all()
+    choices_serializer = ChoiceSerializer(choices, many=True)
+    return JsonResponse(choices_serializer.data, safe=False)
+
+@api_view(['GET', 'POST','PUT', 'DELETE'])
+def post_test(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
     dataS =  request.data.get("id")
-    selected_choice = question.choice_set.get(pk=dataS)
+    selected_choice = question.choice_set.get(pk=dataS['id'])
     selected_choice.votes += 1
     selected_choice.save()
-    return JsonResponse({'message': 'Mudar aqui'}, status=status)
+    return JsonResponse({'message': 'Mudar aqui'}, status=200)

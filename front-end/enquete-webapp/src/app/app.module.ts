@@ -7,13 +7,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { EnqueteComponent } from './enquete/enquete.component';
 import { EnqueteDetalhesComponent } from './enquete/enquete-detalhes/enquete-detalhes.component';
 import { FormsModule } from '@angular/forms';
+import { ParciaisComponent } from './parciais/parciais.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EnqueteComponent,
-    EnqueteDetalhesComponent
+    EnqueteDetalhesComponent,
+    ParciaisComponent
   ],
   imports: [
     BrowserModule,
